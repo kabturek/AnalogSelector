@@ -3,7 +3,8 @@
 #include "Adafruit_MCP23008.h"
 #include "AnalogSelector.h"
 
-namespace selector{
+namespace arduino{
+  namespace libraries{
     AnalogSelector::AnalogSelector(){
       //take the saved values
       selected_input = 0;
@@ -60,4 +61,5 @@ namespace selector{
       selector_for(input).digitalWrite(mcp_output, HIGH);
       selector_for(input).digitalWrite(mcp_output, LOW);
     }
+  }
 }
