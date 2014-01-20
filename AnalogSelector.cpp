@@ -24,9 +24,10 @@ namespace arduino{
       set_input_to(selected_input, !is_muted);
     }
     void AnalogSelector::mute_all(){
-      selector1.send(B10101010);
+      selector1.send(B01010101);
+      selector2.send(B01010101);
+      delay(4);
       selector1.send(B00000000);
-      selector2.send(B10101010);
       selector2.send(B00000000);
     }
     uint8_t AnalogSelector::actual_input(){
@@ -44,12 +45,10 @@ namespace arduino{
       if(input < 4){
         return selector1;
       } else {
-        input -=4;
         return selector2;
       }
     }
     void AnalogSelector::set_input_to(uint8_t input, bool state){
-      // choose the selector for that input number
       int mcp_output = input % 4;
       // choose the relay
       mcp_output = mcp_output << 1;
@@ -59,6 +58,7 @@ namespace arduino{
       }
       //flip the bistable relay
       selector_for(input).digitalWrite(mcp_output, HIGH);
+      delay(4);
       selector_for(input).digitalWrite(mcp_output, LOW);
     }
   }
